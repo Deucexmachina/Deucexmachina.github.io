@@ -1,7 +1,7 @@
 body {
     background-color: #D5ECF2;
     color: #000;
-    font-family: 'Lobster', cursive;
+    font-family: 'Comic Sans MS', cursive;
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,11 +10,13 @@ body {
 }
 
 h1 {
+    font-family: 'Comic Sans MS', cursive;
     color: #EB7585;
     margin-top: 20px;
 }
 
 h2 {
+    font-family: 'Comic Sans MS', cursive;
     color: #FFFFFF;
 }
 
@@ -68,6 +70,7 @@ h2 {
 }
 
 .box {
+    font-family: 'Comic Sans MS', cursive;
     background-color: #91D1D3;
     color: #5D6F87;
     padding: 20px;
