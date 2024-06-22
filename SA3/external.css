@@ -1,0 +1,100 @@
+.navbar {
+    background-color: #c09c7b;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand {
+    font-weight: bold; 
+    color: #333333; 
+}
+
+.navbar-nav .nav-link {
+    color: #333333;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #007bff;
+}
+
+#header {
+    background-color: #c09c7b;
+    color: #1a1a21;
+    padding: 3rem 0;
+}
+
+#header h1 {
+    font-size: 3rem;
+}
+
+#body {
+    background-color: #333333;
+    color: #1a1a21;
+    padding: 3rem 0;
+}
+
+.card {
+    background-color: #c09c7b;
+    border: 1px solid #dee2e6;
+    margin-bottom: 1rem;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.card-body {
+    padding: 2rem;
+    text-align: center;
+}
+
+.card-body h2 {
+    font-size: 2.5rem;
+}
+
+.card-body p {
+    margin-bottom: 1rem;
+}
+
+
+#contact {
+    background-color: #ffffff;
+    color: #1a1a21; 
+    padding: 3rem 0;
+}
+
+#contact h2 {
+    font-size: 3rem;
+}
+
+#contactForm {
+    display: none; 
+    margin-top: 2rem; 
+}
+
+#contactForm.show {
+    display: block; 
+}
+
+#contactForm form {
+    max-width: 400px; 
+    margin: 0 auto; 
+}
+
+#contactForm .form-group {
+    margin-bottom: 1rem; 
+}
+
+#contactForm button[type="submit"] {
+    width: 100%; 
+}
+
+footer {
+    background-color: #333333;
+    color: #ffffff; 
+    padding: 2rem 0; 
+}
+
+footer p {
+    margin-bottom: 0.5rem;
+}

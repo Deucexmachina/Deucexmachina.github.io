@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapid Wireframing Website</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="external.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="images/World_Penacony.png" alt="Logo" style="height: 30px;">Penacony</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="#header">Header</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#body">Body</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact Us</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<section id="header" class="py-5 text-center">
+    <div class="container">
+        <h1>Penacony's Golden Hour</h1>
+    </div>
+</section>
+
+<section id="body" class="py-5">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="images/Item_Floatdisc_Burger.png" alt="Item Image" style="max-width: 100%;">
+                        <h2>Floatdisc Burger</h2>
+                        <p class="card-text">3600 credits</p>
+                        <p class="card-text">Upon use, Max HP of all allies increases by 14% plus an extra 360 for the next battle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="images/Item_Oak_Cake_Rolls.png" alt="Item Image" style="max-width: 100%;">
+                        <h2>Oak Cake Rolls</h2>
+                        <p class="card-text">3600 credits</p>
+                        <p class="card-text">Upon use, increases all allies' Break Effect by 45% for the next battle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="images/Item_Clockie_Pizza_29.png" alt="Item Image" style="max-width: 100%;">
+                        <h2>Clockie Pizza (Whole)</h2>
+                        <p class="card-text">5200 credits</p>
+                        <p class="card-text">Upon use, increases all allies' SPD by 16% but reduces their DMG by 8% for the next battle.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <img src="https://static.wikia.nocookie.net/houkai-star-rail/images/c/ca/Item_Potato_Fries_Sundae.png/revision/latest?cb=20240206083509" alt="Item Image" style="max-width: 100%;">
+                        <h2>Potato Fries Sundae</h2>
+                        <p class="card-text">3600 credits</p>
+                        <p class="card-text">Upon use, grants all allies a random effect from the following for the next battle: Deals 15% more Ice DMG and increases Fire RES by 15%, or deals 15% more Fire DMG and increases Ice RES by 15%.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="py-5 text-center">
+    <div class="container">
+        <h2>We'd love to hear from you</h2>
+        <button class="btn btn-primary mt-3" onclick="toggleContactForm()">Contact Us</button>
+        <div id="contactForm" class="mt-3">
+            <form>
+                <div class="form-group">
+                    <input type="email" class="form-control" id="inputEmail" placeholder="Your Email">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" id="inputMessage" rows="3" placeholder="Your Message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-4 text-white text-center">
+    <div class="container">
+        <p>&copy;All assets used belong to Hoyoverse. This website is only used for education purposes</p>
+        <p>Contact: 202312297@fit.edu.ph</p>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    function toggleContactForm() {
+        var contactForm = document.getElementById('contactForm');
+        contactForm.classList.toggle('show');
+    }
+</script>
+
+</body>
+</html>
