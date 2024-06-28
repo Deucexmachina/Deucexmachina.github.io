@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="external.css">
+</head>
+<body>
+    <div class="container login-container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <img src="images/logo.png" alt="University Logo" class="img-fluid logo">
+                        <a href="https://feu.instructure.com/search/all_courses" class="browse-courses-link">Browse courses</a>
+                    </div>
+                    <div class="card-body">
+                        <form id="loginForm" action="https://login.microsoftonline.com/b0a025d9-cb88-4408-9b15-ce77d47c3810/saml2?SAMLRequest=fZJBb9swDIXv%2BxWG7rJlxXYcIQmQNRgWoN2CJtuhl0KW6FaALWWi1G3%2FforTot2hvVJ8%2FPgetUQ5DiexieHR3sKvCBiyP%2BNgUUwPKxK9FU6iQWHlCCiCEofNzbXgORMn74JTbiBvJB8rJCL4YJwl2W67IvdspmadbnpaN1zRqumAtg2TtGo116xb6Fo3JPsJHpNmRdKIJESMsLMYpA2pxHhFWUN5eyyZqLlg%2FI5k2%2BTDWBkm1WMIJxRFMbgHY%2FPRKO%2FQ9cHZwVjIlRuLjknGa72gqmtbWlWspYuurKmC%2BVxXczVrS1ac3XGSbV4sXDmLcQR%2FAP9kFPy4vX5F9RBzk1b0UYXoL5AJP00h2f45uc%2FGamMfPg6tuzSh%2BHo87un%2B%2B%2BFI1svzHDFF4ddn6jvQaell8bZ7eTn5t8TZbfduMOpv9sX5UYb31yjzcqoYTfupVUSLJ1CmN6BTJsPgfl95kAFWJPGBFOsL9P%2Bvtf70Dw%3D%3D&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=JL%2BcEdWEgYydTdLoLDEaZhlrJahsdQC71ieUDuDrMXZsM7o7wJTAbSVQGknjMSscTfy8qofpekLEvNliQO%2BiIVVKVuneBD8BBzARBMD2KYHhO%2FRbEKahoJ1rvWeqQb%2BmmHqwwf6xAhe8NKE5bYZgXG7Q6FgFwHiNTV80%2BJQ2P9yJg%2FO1X3EV829IUEFJ5kVcnyuiC%2BgtBVrGLlB2HN%2FXxx1MR3JE7kZDnaGlHYEv7VgA2X7CMsEc3hK3s3IzW1Vf3SQpKp7q%2F38HYndQP3mDNufddHV45LPyPv%2BLqdoV%2F%2FlWb9nxdDsPQa%2B9x8G53UyLPRlYmx8LJiyOMNRwxh8tpQ%3D%3D" method="post">
+                            <div class="form-group">
+                                <label for="username">Username</label>
+                                <input type="text" class="form-control" id="username" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="staySignedIn">
+                                <label class="form-check-label" for="staySignedIn">Stay signed in</label>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <a href="#" class="text-white underline">Forgot Password?</a>
+                                <button type="submit" class="btn btn-primary login-btn">Log In</button>
+                            </div>
+                        </form>
+                        <hr class="login-divider">
+                        <div class="text-center mt-3">
+                            <a href="https://login.microsoftonline.com/b0a025d9-cb88-4408-9b15-ce77d47c3810/saml2?SAMLRequest=fZJBb9swDIXv%2BxWG7rJlxXYcIQmQNRgWoN2CJtuhl0KW6FaALWWi1G3%2FforTot2hvVJ8%2FPgetUQ5DiexieHR3sKvCBiyP%2BNgUUwPKxK9FU6iQWHlCCiCEofNzbXgORMn74JTbiBvJB8rJCL4YJwl2W67IvdspmadbnpaN1zRqumAtg2TtGo116xb6Fo3JPsJHpNmRdKIJESMsLMYpA2pxHhFWUN5eyyZqLlg%2FI5k2%2BTDWBkm1WMIJxRFMbgHY%2FPRKO%2FQ9cHZwVjIlRuLjknGa72gqmtbWlWspYuurKmC%2BVxXczVrS1ac3XGSbV4sXDmLcQR%2FAP9kFPy4vX5F9RBzk1b0UYXoL5AJP00h2f45uc%2FGamMfPg6tuzSh%2BHo87un%2B%2B%2BFI1svzHDFF4ddn6jvQaell8bZ7eTn5t8TZbfduMOpv9sX5UYb31yjzcqoYTfupVUSLJ1CmN6BTJsPgfl95kAFWJPGBFOsL9P%2Bvtf70Dw%3D%3D&SigAlg=http%3A%2F%2Fwww.w3.org%2F2001%2F04%2Fxmldsig-more%23rsa-sha256&Signature=JL%2BcEdWEgYydTdLoLDEaZhlrJahsdQC71ieUDuDrMXZsM7o7wJTAbSVQGknjMSscTfy8qofpekLEvNliQO%2BiIVVKVuneBD8BBzARBMD2KYHhO%2FRbEKahoJ1rvWeqQb%2BmmHqwwf6xAhe8NKE5bYZgXG7Q6FgFwHiNTV80%2BJQ2P9yJg%2FO1X3EV829IUEFJ5kVcnyuiC%2BgtBVrGLlB2HN%2FXxx1MR3JE7kZDnaGlHYEv7VgA2X7CMsEc3hK3s3IzW1Vf3SQpKp7q%2F38HYndQP3mDNufddHV45LPyPv%2BLqdoV%2F%2FlWb9nxdDsPQa%2B9x8G53UyLPRlYmx8LJiyOMNRwxh8tpQ%3D%3D" class="btn btn-secondary btn-block microsoft-btn">
+                                <img src="images/microsoft.png" alt="Microsoft Logo" class="microsoft-logo">
+                                Login with Microsoft
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer text-center">
+                        <small>
+                            <a href="https://community.canvaslms.com/t5/Canvas/ct-p/canvas" class="text-white underline">Help</a> | 
+                            <a href="https://www.instructure.com/policies/product-privacy-policy" class="text-white underline">Privacy Policy</a> | 
+                            <a href="#" class="text-white underline">Acceptable Use Policy</a> | 
+                            <a href="https://www.facebook.com/Instructure/" class="text-white underline">Facebook</a> | 
+                            <a href="https://x.com/instructure" class="text-white underline">Twitter</a>
+                        </small>
+                        <div class="text-center mt-3">
+                            <a href="https://www.instructure.com/">
+                                <img src="images/instructure.png" alt="Instructure Logo" class="img-fluid instructure-logo">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (!username || !password) {
+                alert('Both username and password are required.');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>

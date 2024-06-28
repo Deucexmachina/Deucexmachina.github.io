@@ -1,0 +1,93 @@
+body {
+    background-image: url('images/bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    margin-top: 100px;
+}
+
+.card {
+    padding: 20px;
+    border: none;
+    background: #ffffff00;
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: none;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    max-width: 150px;
+    margin-left: 0;
+}
+
+.browse-courses-link {
+    color: white;
+    text-decoration: underline;
+    margin-right: 10px;
+}
+
+.card-body .form-control {
+    background: white;
+    border: 1px solid #ced4da;
+    font-size: 0.9rem;
+}
+
+.form-check {
+    margin-bottom: 1.5rem;
+}
+
+.btn-primary {
+    background-color: #004d0000;
+    border: 1px solid white;
+    width: 120px;
+}
+
+.btn-primary.login-btn {
+    width: 130px;
+}
+
+.btn-secondary {
+    background-color: #004d0000;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.microsoft-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.login-divider {
+    border-top: 1px solid white;
+}
+
+.text-white {
+    color: white !important;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.instructure-logo {
+    max-width: 100px;
+}
+
+a:hover {
+    color: white;
+}
