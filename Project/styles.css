@@ -1,0 +1,351 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.header {
+    max-width: 800px;
+}
+
+@media (min-width: 300px) {
+    .main {
+        background-image: url(images/1.jpg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-position: center top;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .header {
+        display: flex;
+        position: fixed;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        background-color: rgba(84, 127, 148, 0.365);
+        backdrop-filter: blur(5px);
+        padding: 10px 20px;
+        border-radius: 40px;
+        width: 80%;
+    }
+
+    .header .logo {
+        display: flex;
+        align-items: center;
+        color: rgb(255, 255, 255);
+    }
+
+    .header .logo img {
+        width: 90px;
+        margin-right: 10px;
+    }
+
+    .header .header-links {
+        font-size: 8px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        color: white;
+        width: 100%;
+        align-items: center;
+    }
+
+    .title {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .form-container {
+        background-color: #ffffff00;
+        padding: 20px;
+        border-radius: 10px;
+        width: 90%;
+        max-width: 400px;
+    }
+
+    .form-container h2 {
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-align: center;
+    }
+
+    .form-container label {
+        display: block;
+        margin: 10px 0 5px;
+    }
+
+    .form-container input[type="text"],
+    .form-container input[type="password"],
+    .form-container input[type="email"],
+    .form-container input[type="date"],
+    .form-container select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .form-container input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    .form-container .checkbox-group {
+        margin: 15px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .btns {
+        display: flex;
+        flex-direction: row;
+        margin-top: 20px;
+    }
+
+    .btns .register {
+        padding: 10px 20px;
+        border: 1px solid white;
+        color: white;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: 0.15s;
+        border: none;
+        background-color: #ffe84f;
+        font-weight: bold;
+        color: #3b4cca;
+    }
+
+    .btns .register:hover {
+        background-color: #3b4cca;
+        color: #ffe84f;
+    }
+
+    .social-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 90%;
+        max-width: 400px;
+        margin-top: 20px;
+    }
+
+    .social-buttons .register {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px 0;
+        border: none;
+        border-radius: 5px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .social-buttons .register img {
+        margin-right: 10px;
+        width: 20px;
+        height: 20px;
+    }
+
+    .social-buttons .apple {
+        background-color: #000000;
+        color: white;
+    }
+
+    .social-buttons .apple:hover {
+        background-color: #333333;
+    }
+
+    .social-buttons .facebook {
+        background-color: #1660ff;
+        color: white;
+    }
+
+    .social-buttons .facebook:hover {
+        background-color: #3374ff;
+    }
+
+    .social-buttons .google {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #ccc;
+    }
+
+    .social-buttons .google:hover {
+        background-color: #f2f2f2;
+    }
+
+    .social-buttons .niantic {
+        background-color: #f57c00;
+        color: white;
+    }
+
+    .social-buttons .niantic:hover {
+        background-color: #ff8c00;
+    }
+
+    .social-buttons .pokemon {
+        background-color: #3c9d40;
+        color: white;
+    }
+
+    .social-buttons .pokemon:hover {
+        background-color: #4caf50;
+    }
+
+    .hover-message {
+        position: absolute;
+        background-color: #ffdddd;
+        color: #d8000c;
+        padding: 5px;
+        border-radius: 5px;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        text-align: center;
+        width: 300px;
+        z-index: 1000;
+        display: none;
+    }
+}
+
+.main .content {
+    margin-top: 200px;
+}
+
+.content {
+    margin-top: 120px;
+}
+
+.menu-icon {
+    display: none;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+}
+
+.header-links {
+    display: flex;
+}
+
+.header-links a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+@media (min-width: 400px) {
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 150px;
+        color: white;
+    }
+}
+
+@media (max-width: 600px) {
+    .menu-icon {
+        display: block;
+    }
+
+    .header-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(220, 241, 250, 0.336);
+        backdrop-filter: blur(5px);
+        position: absolute;
+        top: 80px;
+        left: 0;
+        padding: 10px 0;
+        border-radius: 35px;
+    }
+
+    .header-links.show {
+        display: flex;
+    }
+
+    .header-links a {
+        text-align: center;
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .header-links a:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (min-width: 601px) {
+    .header-links a {
+        text-align: center;
+        padding: 15px;
+        font-size: 8px;
+        font-weight: bold;
+        margin-right: 5px;
+        border-radius: 20px;
+        transition: 0.15s;
+    }
+
+    .header-links a:hover {
+        background-color: #3b4cca;
+        color: #ffe84f;
+    }
+}
+
+@media (min-width: 700px) {
+    .header-links a {
+        text-align: center;
+        padding: 15px;
+        font-size: 12px;
+        font-weight: bold;
+    }
+
+    .title h1 {
+        font-size: 50px;
+    }
+
+    .title h4 {
+        margin-top: 20px;
+        font-weight: 400;
+        font-size: larger;
+    }
+}
+
+@media (min-width: 1000px) {
+    .header-links a {
+        text-align: center;
+        padding: 15px;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .title h1 {
+        font-size: 50px;
+    }
+
+    .title h4 {
+        margin-top: 30px;
+        font-weight: 400;
+        font-size: 30px;
+    }
+}

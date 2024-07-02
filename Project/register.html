@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Go Registration</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="whole">
+        <div class="main" id="main">
+            <div class="header">
+                <div class="logo">
+                    <img src="images/pg logo.png" alt="">
+                    Webstore
+                </div>
+                <div class="menu-icon" onclick="toggleMenu()">☰</div>
+                <div class="header-links">
+                    <a href="homepage.html">Home</a>
+                    <a href="#main2">Products</a>
+                    <a href="#main3">About Us</a>
+                    <a href="#main4">Register</a>
+                    <a href="#" class="login-btn">Log In</a>
+                </div>
+            </div>
+            
+            <div class="content">
+                <div class="form-container">
+                    <h2>Register</h2>
+                    <form id="registrationForm" onsubmit="return validateForm()">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" name="username" required>
+
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password" required>
+
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" required>
+
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" id="dob" name="dob" required>
+
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender" required>
+                            <option value="">Select Gender</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                            <option value="other">Other</option>
+                        </select>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="emailNotifications" name="emailNotifications">
+                            <label for="emailNotifications">I would like to receive email notifications about Pokemon Go news, events and activities.</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" name="terms" required>
+                            <label for="terms">I have read and accept the Terms and Conditions</label>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="privacy" name="privacy" required>
+                            <label for="privacy">I have read and accept the Privacy Policy</label>
+                        </div>
+
+                        <div class="btns">
+                            <button type="submit" class="register">Register</button>
+                        </div>
+                    </form>
+                    <div class="hover-message" id="hoverMessage">This is a required field.</div>
+                </div>
+                <hr>
+                <div class="social-buttons">
+                    <button class="register apple"><img src="images/apple.png" alt="Sign up with Apple"> Sign up with Apple</button>
+                    <button class="register facebook"><img src="images/facebook.png" alt="Sign up with Facebook"> Sign up with Facebook</button>
+                    <button class="register google"><img src="images/google.png" alt="Sign up with Google"> Sign up with Google</button>
+                    <button class="register niantic">Sign up with Niantic Kids</button>
+                    <button class="register pokemon">Sign up with Pokémon Trainer Club</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function toggleMenu() {
+            var links = document.querySelector('.header-links');
+            links.classList.toggle('show');
+        }
+
+        function validateForm() {
+            var form = document.getElementById('registrationForm');
+            var hoverMessage = document.getElementById('hoverMessage');
+            var isValid = true;
+
+            form.querySelectorAll('[required]').forEach(function(input) {
+                if (!input.value || (input.type === 'checkbox' && !input.checked)) {
+                    isValid = false;
+                }
+            });
+
+            if (!isValid) {
+                hoverMessage.style.display = 'block';
+                setTimeout(function() {
+                    hoverMessage.style.display = 'none';
+                }, 3000);
+            }
+
+            return isValid;
+        }
+    </script>
+</body>
+</html>
