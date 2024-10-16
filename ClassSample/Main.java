@@ -102,6 +102,8 @@ public class Main {
                 System.out.println("Department: " + emps[i].getDepartment());
                 System.out.println("---------------------------------------------");
             }
+            
         }
+
     }
 }
