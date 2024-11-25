@@ -44,41 +44,13 @@ public class Borrow {
     private static ArrayList<BorrowRecord> borrowRecords = new ArrayList<>();
 
     public static void main(String[] args) {
-        loadBorrowRecords();
         Scanner scanner = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\n--- Borrow System ---");
-            System.out.println("1. Borrow Material");
-            System.out.println("2. View Borrow Records");
-            System.out.println("3. Exit");
-            System.out.print("Enter your choice: ");
-
-            while (!scanner.hasNextInt()) {
-                System.out.print("Invalid input. Enter a number: ");
-                scanner.next();
-            }
-            choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1: borrowMaterial(scanner);
-                break;
-                case 2: viewBorrowRecords();
-                break;
-                case 3: {
-                    saveBorrowRecords();
-                    System.out.println("Exiting system. Goodbye!");
-                }
-                break;
-                default: System.out.println("Invalid choice. Please try again.");
-                break;
-            }
-        } while (choice != 3);
+        borrowMaterial(scanner);
     }
 
     private static void borrowMaterial(Scanner scanner) {
+        loadBorrowRecords();
+
         System.out.println("\n--- Borrow Material ---");
 
         System.out.print("Enter Borrower ID: ");
@@ -145,15 +117,8 @@ public class Borrow {
         System.out.println("Material borrowed successfully!");
         System.out.println("Borrow Date: " + borrowDate);
         System.out.println("Due Date: " + (borrowDays > 0 ? dueDate : "End of Day"));
-    }
 
-    private static void viewBorrowRecords() {
-        System.out.println("\n--- Borrow Records ---");
-        if (borrowRecords.isEmpty()) {
-            System.out.println("No borrow records to display.");
-        } else {
-            borrowRecords.forEach(System.out::println);
-        }
+        saveBorrowRecords();
     }
 
     @SuppressWarnings("unchecked")

@@ -1,0 +1,119 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Main",
+            "request": "launch",
+            "mainClass": "ClassSample.Main",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Main(1)",
+            "request": "launch",
+            "mainClass": "Interface.Main",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Example",
+            "request": "launch",
+            "mainClass": "Java.Example",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "LabExer1A",
+            "request": "launch",
+            "mainClass": "Java.LabExer1A",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "LabExer1B",
+            "request": "launch",
+            "mainClass": "Java.LabExer1B",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "LabExer2",
+            "request": "launch",
+            "mainClass": "Java.LabExer2",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Loop",
+            "request": "launch",
+            "mainClass": "Java.Loop",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Vote",
+            "request": "launch",
+            "mainClass": "Java.Vote",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "measurements2",
+            "request": "launch",
+            "mainClass": "Java.measurements2",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "AssetManagement",
+            "request": "launch",
+            "mainClass": "OOP.AssetManagement",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Borrow",
+            "request": "launch",
+            "mainClass": "OOP.Borrow",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "BorrowersManagement",
+            "request": "launch",
+            "mainClass": "OOP.BorrowersManagement",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Main(2)",
+            "request": "launch",
+            "mainClass": "OOP.Main",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Return",
+            "request": "launch",
+            "mainClass": "OOP.Return",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        },
+        {
+            "type": "java",
+            "name": "Main(3)",
+            "request": "launch",
+            "mainClass": "PersonnelManagement.Main",
+            "projectName": "Deucexmachina.github.io_670d064f"
+        }
+    ]
+}

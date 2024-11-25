@@ -39,7 +39,7 @@ public class Main {
                     Return.main(new String[]{});
                     break;
                 case 5:
-                    // BorrowerHistory.main(new String[]{});
+                    BorrowerHistory.main(new String[]{});
                     break;
                 case 6:
                     // BookHistory.main(new String[]{});
