@@ -182,6 +182,19 @@ public class BorrowersManagement {
         String address = scanner.nextLine();
         System.out.print("Enter Number of Violations: ");
         int violations = scanner.nextInt();
+        try {
+            violations = scanner.nextInt();
+            scanner.nextLine();
+            if (violations < 0) {
+                System.out.println("Violations cannot be negative.");
+                return;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+            scanner.nextLine();
+            return;
+        }
+
         scanner.nextLine();
 
         Borrower newBorrower = new Borrower(id, firstName, middleName, lastName, gender, birthday,
