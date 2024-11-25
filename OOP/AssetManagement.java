@@ -114,6 +114,17 @@ public class AssetManagement {
     private static final String FILE_NAME = "assets.txt";
     private static ArrayList<Material> materials = new ArrayList<>();
 
+    private static boolean isValidString(String input) {
+        return input.matches("[a-zA-Z0-9 .'-]+");
+    }
+    private static boolean isValidMaterialType(String type) {
+        return type.equalsIgnoreCase("Book") || type.equalsIgnoreCase("Journal") ||
+               type.equalsIgnoreCase("Magazine") || type.equalsIgnoreCase("ThesisBook");
+    }
+    private static boolean isValidMaterialId(String materialId) {
+        return materialId.matches("\\d+");
+    }    
+
     public static void main(String[] args) {
         loadAssets();
         Scanner scanner = new Scanner(System.in);
@@ -161,6 +172,11 @@ public class AssetManagement {
         System.out.print("Enter Material ID: ");
         String materialId = scanner.nextLine();
 
+        if (!isValidMaterialId(materialId)) {
+            System.out.println("Invalid Material ID. Only numbers are allowed.");
+            return;
+        }
+        
         if (materials.stream().anyMatch(m -> m.getMaterialId().equals(materialId))) {
             System.out.println("Material with this ID already exists.");
             return;
@@ -168,16 +184,50 @@ public class AssetManagement {
 
         System.out.print("Enter Material Type (Book/Journal/Magazine/ThesisBook): ");
         String type = scanner.nextLine();
+        if (!isValidMaterialType(type)) {
+            System.out.println("Invalid material type. Only Book, Journal, Magazine, or ThesisBook are allowed.");
+            return;
+        }
         System.out.print("Enter Title: ");
         String title = scanner.nextLine();
+        if (!isValidString(title)) {
+            System.out.println("Invalid title. Only letters, numbers, and common symbols are allowed.");
+            return;
+        }
         System.out.print("Enter Year Published: ");
-        int yearPublished = scanner.nextInt();
-        scanner.nextLine();
+        int yearPublished;
+        try {
+            yearPublished = scanner.nextInt();
+            scanner.nextLine();
+            if (yearPublished <= 0) {
+                System.out.println("Invalid year. Must be a positive number.");
+                return;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid year.");
+            scanner.nextLine();
+            return;
+        }        
         System.out.print("Enter Publisher: ");
         String publisher = scanner.nextLine();
+        if (!isValidString(publisher)) {
+            System.out.println("Invalid publisher name. Only letters, numbers, and common symbols are allowed.");
+            return;
+        }
         System.out.print("Enter Number of Copies: ");
-        int copies = scanner.nextInt();
-        scanner.nextLine();
+        int copies;
+        try {
+            copies = scanner.nextInt();
+            scanner.nextLine();
+            if (copies <= 0) {
+                System.out.println("Invalid number of copies. Must be a positive number.");
+                return;
+            }
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+            scanner.nextLine();
+            return;
+        }
 
         Material newMaterial;
         switch (type.toLowerCase()) {
