@@ -3,13 +3,13 @@ package OOP;
 import java.io.*;
 import java.util.*;
 
-class BorrowTransaction implements Serializable {
+class BorrowRecord implements Serializable {
     private String borrowerId;
     private String materialId;
     private Date borrowDate;
     private Date dueDate;
 
-    public BorrowTransaction(String borrowerId, String materialId, Date borrowDate, Date dueDate) {
+    public BorrowRecord(String borrowerId, String materialId, Date borrowDate, Date dueDate) {
         this.borrowerId = borrowerId;
         this.materialId = materialId;
         this.borrowDate = borrowDate;
@@ -35,24 +35,23 @@ class BorrowTransaction implements Serializable {
     @Override
     public String toString() {
         return "Borrower ID: " + borrowerId + ", Material ID: " + materialId +
-                ", Borrow Date: " + borrowDate + ", Due Date: " + dueDate;
+               ", Borrow Date: " + borrowDate + ", Due Date: " + dueDate;
     }
 }
 
 public class Borrow {
-    private static final String TRANSACTION_FILE = "transactions.txt";
-    private static ArrayList<BorrowTransaction> transactions = new ArrayList<>();
+    private static final String BORROW_FILE = "borrow_records.txt";
+    private static ArrayList<BorrowRecord> borrowRecords = new ArrayList<>();
 
     public static void main(String[] args) {
-        loadTransactions();
+        loadBorrowRecords();
         Scanner scanner = new Scanner(System.in);
-
         int choice;
 
         do {
-            System.out.println("\n--- Borrow Menu ---");
+            System.out.println("\n--- Borrow System ---");
             System.out.println("1. Borrow Material");
-            System.out.println("2. View Borrowed Materials");
+            System.out.println("2. View Borrow Records");
             System.out.println("3. Exit");
             System.out.print("Enter your choice: ");
 
@@ -64,19 +63,17 @@ public class Borrow {
             scanner.nextLine();
 
             switch (choice) {
-                case 1:
-                    borrowMaterial(scanner);
-                    break;
-                case 2:
-                    viewBorrowedMaterials();
-                    break;
-                case 3:
-                    saveTransactions();
-                    System.out.println("Exiting borrow menu. Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
+                case 1: borrowMaterial(scanner);
+                break;
+                case 2: viewBorrowRecords();
+                break;
+                case 3: {
+                    saveBorrowRecords();
+                    System.out.println("Exiting system. Goodbye!");
+                }
+                break;
+                default: System.out.println("Invalid choice. Please try again.");
+                break;
             }
         } while (choice != 3);
     }
@@ -84,96 +81,105 @@ public class Borrow {
     private static void borrowMaterial(Scanner scanner) {
         System.out.println("\n--- Borrow Material ---");
 
+        // Input Borrower ID
         System.out.print("Enter Borrower ID: ");
         String borrowerId = scanner.nextLine();
-
-        Borrower borrower = BorrowersManagement.borrowers.stream()
-                .filter(b -> b.getId().equals(borrowerId))
-                .findFirst()
-                .orElse(null);
+        Borrower borrower = BorrowersManagement.getBorrowers().stream()
+            .filter(b -> b.getId().equals(borrowerId))
+            .findFirst()
+            .orElse(null);
 
         if (borrower == null) {
-            System.out.println("Borrower not found.");
+            System.out.println("Borrower not found. Please register the borrower first.");
             return;
         }
 
+        // Check if borrower has 3 strikes
         if (borrower.getViolations() >= 3) {
-            System.out.println("Borrower has 3 strikes. Borrowing not allowed.");
+            System.out.println("Borrower has 3 violations. Cannot borrow materials.");
             return;
         }
 
-        if (transactions.stream().anyMatch(t -> t.getBorrowerId().equals(borrowerId))) {
-            System.out.println("Borrower already has a borrowed material.");
+        // Check if borrower already has a borrowed material
+        if (borrowRecords.stream().anyMatch(r -> r.getBorrowerId().equals(borrowerId))) {
+            System.out.println("Borrower already has a borrowed material. Return it first.");
             return;
         }
 
+        // Input Material ID
         System.out.print("Enter Material ID: ");
         String materialId = scanner.nextLine();
-
-        Material material = AssetManagement.materials.stream()
-                .filter(m -> m.getMaterialId().equals(materialId))
-                .findFirst()
-                .orElse(null);
+        Material material = AssetManagement.getMaterials().stream()
+            .filter(m -> m.getMaterialId().equals(materialId))
+            .findFirst()
+            .orElse(null);
 
         if (material == null) {
-            System.out.println("Material not found.");
+            System.out.println("Material not found. Please add it first.");
             return;
         }
 
+        // Check material availability
         if (material.copies <= 0) {
-            System.out.println("No copies of this material are available for borrowing.");
+            System.out.println("No copies available for this material.");
             return;
         }
 
-        int borrowDays = switch (material.getMaterialType().toLowerCase()) {
-            case "book" -> 7;
-            case "journal" -> 3;
-            case "magazine" -> 0; // Same-day return
-            case "thesis book" -> 2;
-            default -> {
-                System.out.println("Unknown material type.");
-                return;
-            }
-        };
-
-        Date borrowDate = new Date();
+        // Determine due date based on material type
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(borrowDate);
-        calendar.add(Calendar.DATE, borrowDays);
-        Date dueDate = borrowDays == 0 ? borrowDate : calendar.getTime();
+        int borrowDays;
 
-        BorrowTransaction transaction = new BorrowTransaction(borrowerId, materialId, borrowDate, dueDate);
-        transactions.add(transaction);
+        switch (material.getMaterialType().toLowerCase()) {
+            case "book": borrowDays = 7; break;
+            case "journal": borrowDays = 3; break;
+            case "magazine": borrowDays = 0; break;
+            case "thesis book": borrowDays = 2; break;
+            default: System.out.println("Invalid material type."); return;
+        }
+
+        Date borrowDate = calendar.getTime();
+        if (borrowDays > 0) {
+            calendar.add(Calendar.DAY_OF_YEAR, borrowDays);
+        }
+        Date dueDate = calendar.getTime();
+
+        // Record borrow transaction
+        BorrowRecord record = new BorrowRecord(borrowerId, materialId, borrowDate, dueDate);
+        borrowRecords.add(record);
+
+        // Decrease material copy count
         material.setCopies(material.copies - 1);
 
-        System.out.println("Borrowing successful! Due date: " + dueDate);
+        System.out.println("Material borrowed successfully!");
+        System.out.println("Borrow Date: " + borrowDate);
+        System.out.println("Due Date: " + (borrowDays > 0 ? dueDate : "End of Day"));
     }
 
-    private static void viewBorrowedMaterials() {
-        System.out.println("\n--- Borrowed Materials ---");
-        if (transactions.isEmpty()) {
-            System.out.println("No transactions to display.");
+    private static void viewBorrowRecords() {
+        System.out.println("\n--- Borrow Records ---");
+        if (borrowRecords.isEmpty()) {
+            System.out.println("No borrow records to display.");
         } else {
-            transactions.forEach(System.out::println);
+            borrowRecords.forEach(System.out::println);
         }
     }
 
     @SuppressWarnings("unchecked")
-    private static void loadTransactions() {
-        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(TRANSACTION_FILE))) {
-            transactions = (ArrayList<BorrowTransaction>) ois.readObject();
+    private static void loadBorrowRecords() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BORROW_FILE))) {
+            borrowRecords = (ArrayList<BorrowRecord>) ois.readObject();
         } catch (FileNotFoundException e) {
-            System.out.println("No saved transactions found. Starting fresh.");
+            System.out.println("No saved borrow records found. Starting fresh.");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error loading transactions: " + e.getMessage());
+            System.out.println("Error loading borrow records: " + e.getMessage());
         }
     }
 
-    private static void saveTransactions() {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(TRANSACTION_FILE))) {
-            oos.writeObject(transactions);
+    private static void saveBorrowRecords() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(BORROW_FILE))) {
+            oos.writeObject(borrowRecords);
         } catch (IOException e) {
-            System.out.println("Error saving transactions: " + e.getMessage());
+            System.out.println("Error saving borrow records: " + e.getMessage());
         }
     }
 }

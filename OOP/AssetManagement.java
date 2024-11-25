@@ -251,6 +251,10 @@ public class AssetManagement {
         }
     }
 
+    public static ArrayList<Material> getMaterials() {
+        return materials;
+    }    
+
     @SuppressWarnings("unchecked")
     private static void loadAssets() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {

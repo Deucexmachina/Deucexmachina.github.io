@@ -37,6 +37,10 @@ class Borrower implements Serializable {
         return firstName + " " + middleName + " " + lastName;
     }
 
+    public int getViolations() {
+        return violations;
+    }    
+
     public void setViolations(int violations) {
         this.violations = violations;
     }
@@ -192,4 +196,8 @@ public class BorrowersManagement {
             System.out.println("Error saving data: " + e.getMessage());
         }
     }
+
+    public static ArrayList<Borrower> getBorrowers() {
+        return borrowers;
+    }    
 }
