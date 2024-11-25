@@ -51,7 +51,6 @@ public class Return {
 
         System.out.print("Please Enter Borrower ID: ");
         String borrowerId = scanner.nextLine();
-        
         BorrowRecord record = borrowRecords.stream()
                 .filter(r -> r.getBorrowerId().equals(borrowerId))
                 .findFirst()
@@ -108,7 +107,6 @@ public class Return {
         }
     }
 
-    @SuppressWarnings("unchecked")
     private static void loadBorrowRecords() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BORROW_FILE))) {
             Object readObject = ois.readObject();

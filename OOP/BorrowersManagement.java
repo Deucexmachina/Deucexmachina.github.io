@@ -256,6 +256,7 @@ public class BorrowersManagement {
     private static void loadBorrowers() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
             borrowers = (ArrayList<Borrower>) ois.readObject();
+            System.out.println("Borrowers loaded successfully.");
         } catch (FileNotFoundException e) {
             System.out.println("No saved data found. Starting fresh.");
         } catch (IOException | ClassNotFoundException e) {
@@ -266,6 +267,7 @@ public class BorrowersManagement {
     private static void saveBorrowers() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(borrowers);
+            System.out.println("Borrowers saved successfully.");
         } catch (IOException e) {
             System.out.println("Error saving data: " + e.getMessage());
         }

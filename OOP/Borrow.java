@@ -81,8 +81,6 @@ public class Borrow {
     private static void borrowMaterial(Scanner scanner) {
         System.out.println("\n--- Borrow Material ---");
 
-        AssetManagement.loadAssets();
-
         System.out.print("Enter Borrower ID: ");
         String borrowerId = scanner.nextLine();
         Borrower borrower = BorrowersManagement.getBorrowers().stream()

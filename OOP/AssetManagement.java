@@ -306,7 +306,7 @@ public class AssetManagement {
     }    
 
     @SuppressWarnings("unchecked")
-    public static void loadAssets() {
+    private static void loadAssets() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
             materials = (ArrayList<Material>) ois.readObject();
         } catch (FileNotFoundException e) {
