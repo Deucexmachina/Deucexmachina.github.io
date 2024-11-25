@@ -81,7 +81,6 @@ public class Borrow {
     private static void borrowMaterial(Scanner scanner) {
         System.out.println("\n--- Borrow Material ---");
 
-        // Input Borrower ID
         System.out.print("Enter Borrower ID: ");
         String borrowerId = scanner.nextLine();
         Borrower borrower = BorrowersManagement.getBorrowers().stream()
@@ -94,19 +93,16 @@ public class Borrow {
             return;
         }
 
-        // Check if borrower has 3 strikes
         if (borrower.getViolations() >= 3) {
             System.out.println("Borrower has 3 violations. Cannot borrow materials.");
             return;
         }
 
-        // Check if borrower already has a borrowed material
         if (borrowRecords.stream().anyMatch(r -> r.getBorrowerId().equals(borrowerId))) {
             System.out.println("Borrower already has a borrowed material. Return it first.");
             return;
         }
 
-        // Input Material ID
         System.out.print("Enter Material ID: ");
         String materialId = scanner.nextLine();
         Material material = AssetManagement.getMaterials().stream()
@@ -119,13 +115,11 @@ public class Borrow {
             return;
         }
 
-        // Check material availability
         if (material.copies <= 0) {
             System.out.println("No copies available for this material.");
             return;
         }
 
-        // Determine due date based on material type
         Calendar calendar = Calendar.getInstance();
         int borrowDays;
 
@@ -143,11 +137,9 @@ public class Borrow {
         }
         Date dueDate = calendar.getTime();
 
-        // Record borrow transaction
         BorrowRecord record = new BorrowRecord(borrowerId, materialId, borrowDate, dueDate);
         borrowRecords.add(record);
 
-        // Decrease material copy count
         material.setCopies(material.copies - 1);
 
         System.out.println("Material borrowed successfully!");
