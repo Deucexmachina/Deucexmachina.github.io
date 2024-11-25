@@ -4,25 +4,61 @@ import java.io.*;
 import java.util.*;
 
 public class Return {
-    private static final String BORROW_FILE = "borrow_books_library.txt";
+    private static final String BORROW_FILE = "borrow_records.txt";
     private static ArrayList<BorrowRecord> borrowRecords = new ArrayList<>();
 
     static {
         loadBorrowRecords();
     }
-    
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n--- Library Return System ---");
+            System.out.println("1. Return Material");
+            System.out.println("2. View Borrow Records");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+
+            while (!scanner.hasNextInt()) {
+                System.out.print("Invalid input. Enter a number: ");
+                scanner.next();
+            }
+            choice = scanner.nextInt();
+            scanner.nextLine();  
+
+            switch (choice) {
+                case 1:
+                    returnMaterial(scanner);
+                    break;
+                case 2:
+                    viewBorrowRecords();
+                    break;
+                case 3:
+                    System.out.println("Exiting system. Goodbye!");
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+                    break;
+            }
+        } while (choice != 3);
+    }
+
     public static void returnMaterial(Scanner scanner) {
-        System.out.println("\n=================== Return Material ===================");
+        System.out.println("\n--- Return Material ---");
 
         System.out.print("Please Enter Borrower ID: ");
         String borrowerId = scanner.nextLine();
+        
         BorrowRecord record = borrowRecords.stream()
                 .filter(r -> r.getBorrowerId().equals(borrowerId))
                 .findFirst()
                 .orElse(null);
 
         if (record == null) {
-            System.out.println("No borrow record was found from this ID.");
+            System.out.println("No borrow record was found for this ID.");
             return;
         }
 
@@ -46,23 +82,25 @@ public class Return {
             return;
         }
 
-        Date returnDate = new Date();
-        if (returnDate.after(record.getDueDate())) {
+        Date returnDate = new Date();  
+        Date dueDate = record.getDueDate();  
+
+        if (returnDate.after(dueDate)) {
             System.out.println("Material was returned late. Adding a strike to the borrower's record.");
             borrower.setViolations(borrower.getViolations() + 1);
         } else {
             System.out.println("Material was returned on time.");
         }
 
-        material.setCopies(material.copies + 1);
-        borrowRecords.remove(record);
+        material.setCopies(material.copies + 1);  
+        borrowRecords.remove(record);  
 
         System.out.println("Material was returned successfully!");
-        saveBorrowRecords();
+        saveBorrowRecords();  
     }
 
     public static void viewBorrowRecords() {
-        System.out.println("\n=================== Borrow Records ===================");
+        System.out.println("\n--- Borrow Records ---");
         if (borrowRecords.isEmpty()) {
             System.out.println("There are no borrow records to show.");
         } else {
@@ -70,6 +108,7 @@ public class Return {
         }
     }
 
+    @SuppressWarnings("unchecked")
     private static void loadBorrowRecords() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BORROW_FILE))) {
             Object readObject = ois.readObject();
@@ -79,7 +118,7 @@ public class Return {
                 throw new ClassNotFoundException("There was a data type mismatch in borrow records file.");
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No saved borrow records were found");
+            System.out.println("No saved borrow records were found.");
         } catch (IOException | ClassNotFoundException e) {
             System.out.println("There was an error loading borrow records: " + e.getMessage());
         }
