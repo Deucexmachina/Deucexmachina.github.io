@@ -1,3 +1,5 @@
+package OOP;
+
 import java.io.*;
 import java.util.*;
 
@@ -134,15 +136,21 @@ public class AssetManagement {
             scanner.nextLine(); 
 
             switch (choice) {
-                case 1 -> addMaterial(scanner);
-                case 2 -> editMaterial(scanner);
-                case 3 -> deleteMaterial(scanner);
-                case 4 -> viewMaterials();
-                case 5 -> {
+                case 1: addMaterial(scanner);
+                break;
+                case 2: editMaterial(scanner);
+                break;
+                case 3: deleteMaterial(scanner);
+                break;
+                case 4: viewMaterials();
+                break;
+                case 5: {
                     saveAssets();
                     System.out.println("Exiting system. Goodbye!");
                 }
-                default -> System.out.println("Invalid choice. Please try again.");
+                break;
+                default: System.out.println("Invalid choice. Please try again.");
+                break;
             }
         } while (choice != 5);
     }
