@@ -181,7 +181,7 @@ public class BorrowersManagement {
         System.out.print("Enter Address: ");
         String address = scanner.nextLine();
         System.out.print("Enter Number of Violations: ");
-        int violations = scanner.nextInt();
+        int violations;
         try {
             violations = scanner.nextInt();
             scanner.nextLine();
@@ -216,11 +216,19 @@ public class BorrowersManagement {
         }
 
         System.out.print("Enter new number of violations: ");
-        int violations = scanner.nextInt();
-        scanner.nextLine();
-
-        borrower.setViolations(violations);
-        System.out.println("Borrower updated successfully!");
+        try {
+            int violations = scanner.nextInt();
+            scanner.nextLine();
+            if (violations < 0) {
+                System.out.println("Violations cannot be negative.");
+                return;
+            }
+            borrower.setViolations(violations);
+            System.out.println("Borrower updated successfully!");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a valid number.");
+            scanner.nextLine();
+        }
     }
 
     private static void deleteBorrower(Scanner scanner) {
@@ -248,6 +256,7 @@ public class BorrowersManagement {
     private static void loadBorrowers() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
             borrowers = (ArrayList<Borrower>) ois.readObject();
+            System.out.println("Borrowers loaded successfully.");
         } catch (FileNotFoundException e) {
             System.out.println("No saved data found. Starting fresh.");
         } catch (IOException | ClassNotFoundException e) {
@@ -258,6 +267,7 @@ public class BorrowersManagement {
     private static void saveBorrowers() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(borrowers);
+            System.out.println("Borrowers saved successfully.");
         } catch (IOException e) {
             System.out.println("Error saving data: " + e.getMessage());
         }
