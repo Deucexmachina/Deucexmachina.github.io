@@ -75,15 +75,15 @@ public class BorrowersManagement {
             scanner.nextLine(); 
 
             switch (choice) {
-                case 1 -> addBorrower(scanner);
-                case 2 -> editBorrower(scanner);
-                case 3 -> deleteBorrower(scanner);
-                case 4 -> viewBorrowers();
-                case 5 -> {
+                case 1: addBorrower(scanner);
+                case 2: editBorrower(scanner);
+                case 3: deleteBorrower(scanner);
+                case 4: viewBorrowers();
+                case 5: {
                     saveBorrowers();
                     System.out.println("Exiting system. Goodbye!");
                 }
-                default -> System.out.println("Invalid choice. Please try again.");
+                default: System.out.println("Invalid choice. Please try again.");
             }
         } while (choice != 5);
     }
