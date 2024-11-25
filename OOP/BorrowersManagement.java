@@ -45,6 +45,38 @@ class Borrower implements Serializable {
         this.violations = violations;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public void setContactNumber(String contactNumber) {
+        this.contactNumber = contactNumber;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "ID: " + id + ", Name: " + getFullName() + ", Gender: " + gender +
@@ -79,6 +111,9 @@ public class BorrowersManagement {
     }
     private static boolean isValidGender(String gender) {
         return gender.matches("(?i)male|female|other");
+    }
+    private static boolean isBlank(String str) {
+        return str == null || str.trim().isEmpty();
     }
     
 
@@ -199,8 +234,6 @@ public class BorrowersManagement {
             return;
         }
 
-        scanner.nextLine();
-
         Borrower newBorrower = new Borrower(id, firstName, middleName, lastName, gender, birthday,
                                             contactNumber, email, address, violations);
         borrowers.add(newBorrower);
@@ -211,29 +244,83 @@ public class BorrowersManagement {
         System.out.println("\n--- Edit Borrower ---");
         System.out.print("Enter Borrower ID to edit: ");
         String id = scanner.nextLine();
-
+    
         Borrower borrower = borrowers.stream().filter(b -> b.getId().equals(id)).findFirst().orElse(null);
-
+    
         if (borrower == null) {
             System.out.println("Borrower not found.");
             return;
         }
-
-        System.out.print("Enter new number of violations: ");
-        try {
-            int violations = scanner.nextInt();
-            scanner.nextLine();
-            if (violations < 0) {
-                System.out.println("Violations cannot be negative.");
-                return;
-            }
-            borrower.setViolations(violations);
-            System.out.println("Borrower updated successfully!");
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a valid number.");
-            scanner.nextLine();
+    
+        System.out.println("Editing Borrower: " + borrower);
+    
+        System.out.print("Enter new First Name (leave blank to keep current): ");
+        String firstName = scanner.nextLine();
+        if (!isBlank(firstName) && isValidName(firstName)) {
+            borrower.setFirstName(firstName);
         }
+    
+        System.out.print("Enter new Middle Name (leave blank to keep current): ");
+        String middleName = scanner.nextLine();
+        if (!isBlank(middleName) && isValidName(middleName)) {
+            borrower.setMiddleName(middleName);
+        }
+    
+        System.out.print("Enter new Last Name (leave blank to keep current): ");
+        String lastName = scanner.nextLine();
+        if (!isBlank(lastName) && isValidName(lastName)) {
+            borrower.setLastName(lastName);
+        }
+    
+        System.out.print("Enter new Gender (Male/Female/Other, leave blank to keep current): ");
+        String gender = scanner.nextLine();
+        if (!isBlank(gender) && isValidGender(gender)) {
+            borrower.setGender(gender);
+        }
+    
+        System.out.print("Enter new Birthday (YYYY-MM-DD, leave blank to keep current): ");
+        String birthday = scanner.nextLine();
+        if (!isBlank(birthday) && isValidBirthday(birthday)) {
+            borrower.setBirthday(birthday);
+        }
+    
+        System.out.print("Enter new Contact Number (leave blank to keep current): ");
+        String contactNumber = scanner.nextLine();
+        if (!isBlank(contactNumber) && isValidContactNumber(contactNumber)) {
+            borrower.setContactNumber(contactNumber);
+        }
+    
+        System.out.print("Enter new Email (leave blank to keep current): ");
+        String email = scanner.nextLine();
+        if (!isBlank(email) && isValidEmail(email)) {
+            borrower.setEmail(email);
+        }
+    
+        System.out.print("Enter new Address (leave blank to keep current): ");
+        String address = scanner.nextLine();
+        if (!isBlank(address)) {
+            borrower.setAddress(address);
+        }
+    
+        System.out.print("Enter new Number of Violations (leave blank to keep current): ");
+        String violationsInput = scanner.nextLine();
+        if (!isBlank(violationsInput)) {
+            try {
+                int violations = Integer.parseInt(violationsInput);
+                if (violations >= 0) {
+                    borrower.setViolations(violations);
+                } else {
+                    System.out.println("Violations cannot be negative.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Violations must be a number.");
+            }
+        }
+    
+        saveBorrowers();
+        System.out.println("Borrower updated successfully!");
     }
+    
 
     private static void deleteBorrower(Scanner scanner) {
         System.out.println("\n--- Delete Borrower ---");

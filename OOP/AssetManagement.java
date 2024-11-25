@@ -42,6 +42,14 @@ class Book extends Material {
         this.author = author;
     }
 
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    
+    public String getAuthor() {
+        return author;
+    }
+
     @Override
     public String toString() {
         return super.toString() + ", Author: " + author;
@@ -60,6 +68,14 @@ class Journal extends Material {
         super(materialId, journalName, yearPublished, publisher, copies);
         this.journalName = journalName;
     }
+
+    public void setJournalName(String journalName) {
+        this.journalName = journalName;
+    }
+    
+    public String getJournalName() {
+        return journalName;
+    }    
 
     @Override
     public String toString() {
@@ -80,6 +96,14 @@ class Magazine extends Material {
         this.magazineName = magazineName;
     }
 
+    public void setMagazineName(String magazineName) {
+        this.magazineName = magazineName;
+    }
+    
+    public String getJournalName() {
+        return magazineName;
+    }    
+
     @Override
     public String toString() {
         return super.toString() + ", Magazine Name: " + magazineName;
@@ -98,6 +122,14 @@ class ThesisBook extends Material {
         super(materialId, title, yearPublished, publisher, copies);
         this.author = author;
     }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+    
+    public String getAuthor() {
+        return author;
+    }    
 
     @Override
     public String toString() {
@@ -128,6 +160,9 @@ public class AssetManagement {
     private static boolean isValidMaterialId(String materialId) {
         return materialId.matches("\\d+");
     }    
+    private static boolean isBlank(String str) {
+        return str == null || str.trim().isEmpty();
+    }
 
     public static void main(String[] args) {
         loadAssets();
@@ -268,21 +303,95 @@ public class AssetManagement {
         System.out.println("\n--- Edit Material ---");
         System.out.print("Enter Material ID to edit: ");
         String materialId = scanner.nextLine();
-
-        Material material = materials.stream().filter(m -> m.getMaterialId().equals(materialId)).findFirst().orElse(null);
-
+    
+        Material material = materials.stream()
+                                     .filter(m -> m.getMaterialId().equals(materialId))
+                                     .findFirst()
+                                     .orElse(null);
+    
         if (material == null) {
             System.out.println("Material not found.");
             return;
         }
-
-        System.out.print("Enter new number of copies: ");
-        int copies = scanner.nextInt();
-        scanner.nextLine();
-
-        material.setCopies(copies);
+    
+        System.out.println("Editing Material: " + material);
+    
+        System.out.print("Enter new Title (leave blank to keep current): ");
+        String title = scanner.nextLine();
+        if (!isBlank(title) && isValidString(title)) {
+            material.title = title;
+        }
+    
+        System.out.print("Enter new Year Published (leave blank to keep current): ");
+        String yearInput = scanner.nextLine();
+        if (!isBlank(yearInput)) {
+            try {
+                int year = Integer.parseInt(yearInput);
+                if (year > 0) {
+                    material.yearPublished = year;
+                } else {
+                    System.out.println("Invalid year. Must be positive.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid year. Must be a number.");
+            }
+        }
+    
+        System.out.print("Enter new Publisher (leave blank to keep current): ");
+        String publisher = scanner.nextLine();
+        if (!isBlank(publisher) && isValidString(publisher)) {
+            material.publisher = publisher;
+        }
+    
+        System.out.print("Enter new Number of Copies (leave blank to keep current): ");
+        String copiesInput = scanner.nextLine();
+        if (!isBlank(copiesInput)) {
+            try {
+                int copies = Integer.parseInt(copiesInput);
+                if (copies > 0) {
+                    material.setCopies(copies);
+                } else {
+                    System.out.println("Invalid number of copies. Must be positive.");
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter a valid number.");
+            }
+        }
+    
+        if (material instanceof Book) {
+            Book book = (Book) material;
+            System.out.print("Enter new Author (leave blank to keep current): ");
+            String author = scanner.nextLine();
+            if (!isBlank(author) && isValidString(author)) {
+                book.setAuthor(author); 
+            }
+        } else if (material instanceof Journal) {
+            Journal journal = (Journal) material;
+            System.out.print("Enter new Journal Name (leave blank to keep current): ");
+            String journalName = scanner.nextLine();
+            if (!isBlank(journalName) && isValidString(journalName)) {
+                journal.setJournalName(journalName);
+            }
+        } else if (material instanceof Magazine) {
+            Magazine magazine = (Magazine) material;
+            System.out.print("Enter new Magazine Name (leave blank to keep current): ");
+            String magazineName = scanner.nextLine();
+            if (!isBlank(magazineName) && isValidString(magazineName)) {
+                magazine.setMagazineName(magazineName);
+            }
+        } else if (material instanceof ThesisBook) {
+            ThesisBook thesisBook = (ThesisBook) material;
+            System.out.print("Enter new Author (leave blank to keep current): ");
+            String author = scanner.nextLine();
+            if (!isBlank(author) && isValidString(author)) {
+                thesisBook.setAuthor(author);
+            }
+        }
+        
+    
         System.out.println("Material updated successfully!");
     }
+    
 
     private static void deleteMaterial(Scanner scanner) {
         System.out.println("\n--- Delete Material ---");
