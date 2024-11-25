@@ -58,6 +58,26 @@ public class BorrowersManagement {
     private static final String FILE_NAME = "borrowers.txt";
     private static ArrayList<Borrower> borrowers = new ArrayList<>();
 
+    private static boolean isValidName(String name) {
+        return name.matches("[a-zA-Z .'-]+");
+    }
+    private static boolean isValidEmail(String email) {
+        return email.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$");
+    }
+    private static boolean isValidContactNumber(String contactNumber) {
+        return contactNumber.matches("\\d{10,15}");
+    }
+    private static boolean isValidBirthday(String birthday) {
+        return birthday.matches("\\d{4}-\\d{2}-\\d{2}");
+    }
+    private static boolean isValidBorrowerID(String id) {
+        return id.matches("\\d+");
+    }
+    private static boolean isValidGender(String gender) {
+        return gender.matches("(?i)male|female|other");
+    }
+    
+
     public static void main(String[] args) {
         loadBorrowers();
 
@@ -101,11 +121,16 @@ public class BorrowersManagement {
     }
 
     private static void addBorrower(Scanner scanner) {
+        
         System.out.println("\n--- Add Borrower ---");
 
         System.out.print("Enter Borrower ID: ");
         String id = scanner.nextLine();
 
+        if (!isValidBorrowerID(id)) {
+            System.out.println("Invalid ID. Only numeric characters are allowed.");
+            return;
+        }
         if (borrowers.stream().anyMatch(b -> b.getId().equals(id))) {
             System.out.println("Borrower with this ID already exists.");
             return;
@@ -113,18 +138,46 @@ public class BorrowersManagement {
 
         System.out.print("Enter First Name: ");
         String firstName = scanner.nextLine();
+        if (!isValidName(firstName)) {
+            System.out.println("Invalid first name. Only letters and valid symbols are allowed.");
+            return;
+        }
         System.out.print("Enter Middle Name: ");
         String middleName = scanner.nextLine();
+        if (!isValidName(middleName)) {
+            System.out.println("Invalid middle name. Only letters and valid symbols are allowed.");
+            return;
+        }
         System.out.print("Enter Last Name: ");
         String lastName = scanner.nextLine();
-        System.out.print("Enter Gender: ");
+        if (!isValidName(lastName)) {
+            System.out.println("Invalid last name. Only letters and valid symbols are allowed.");
+            return;
+        }
+        System.out.print("Enter Gender (Male/Female/Other): ");
         String gender = scanner.nextLine();
+        if (!isValidGender(gender)) {
+            System.out.println("Invalid gender. Only 'Male', 'Female', or 'Other' are accepted.");
+            return;
+        }
         System.out.print("Enter Birthday (YYYY-MM-DD): ");
         String birthday = scanner.nextLine();
+        if (!isValidBirthday(birthday)) {
+            System.out.println("Invalid birthday. Follow the standard birthday format.");
+            return;
+        }
         System.out.print("Enter Contact Number: ");
         String contactNumber = scanner.nextLine();
+        if (!isValidContactNumber(contactNumber)) {
+            System.out.println("Invalid contact number. Follow the standard contact number format.");
+            return;
+        }
         System.out.print("Enter Email: ");
         String email = scanner.nextLine();
+        if (!isValidEmail(email)) {
+            System.out.println("Invalid email. Follow the standard email format.");
+            return;
+        }
         System.out.print("Enter Address: ");
         String address = scanner.nextLine();
         System.out.print("Enter Number of Violations: ");
