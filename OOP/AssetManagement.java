@@ -114,6 +114,10 @@ public class AssetManagement {
     private static final String FILE_NAME = "assets.txt";
     private static ArrayList<Material> materials = new ArrayList<>();
 
+    static {
+        loadAssets();
+    }
+
     private static boolean isValidString(String input) {
         return input.matches("[a-zA-Z0-9 .'-]+");
     }
@@ -301,10 +305,6 @@ public class AssetManagement {
         }
     }
 
-    public static ArrayList<Material> getMaterials() {
-        return materials;
-    }    
-
     @SuppressWarnings("unchecked")
     private static void loadAssets() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
@@ -316,11 +316,17 @@ public class AssetManagement {
         }
     }
 
-    private static void saveAssets() {
+    public static void saveAssets() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
             oos.writeObject(materials);
+            System.out.println("Assets saved successfully.");
         } catch (IOException e) {
             System.out.println("Error saving data: " + e.getMessage());
         }
     }
+    
+
+    public static ArrayList<Material> getMaterials() {
+        return materials;
+    }    
 }

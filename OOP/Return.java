@@ -13,76 +13,51 @@ public class Return {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int choice;
 
-        do {
-            System.out.println("\n--- Library Return System ---");
-            System.out.println("1. Return Material");
-            System.out.println("2. View Borrow Records");
-            System.out.println("3. Exit");
-            System.out.print("Enter your choice: ");
-
-            while (!scanner.hasNextInt()) {
-                System.out.print("Invalid input. Enter a number: ");
-                scanner.next();
-            }
-            choice = scanner.nextInt();
-            scanner.nextLine();  
-
-            switch (choice) {
-                case 1:
-                    returnMaterial(scanner);
-                    break;
-                case 2:
-                    viewBorrowRecords();
-                    break;
-                case 3:
-                    System.out.println("Exiting system. Goodbye!");
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
-            }
-        } while (choice != 3);
+        returnMaterial(scanner);
     }
 
     public static void returnMaterial(Scanner scanner) {
-        System.out.println("\n--- Return Material ---");
+        loadBorrowRecords();
+        System.out.println("\n--- Return System ---");
 
         System.out.print("Please Enter Borrower ID: ");
         String borrowerId = scanner.nextLine();
+
+        ArrayList<Borrower> borrowers = BorrowersManagement.getBorrowers();
+        Borrower borrower = borrowers.stream()
+                .filter(b -> b.getId().equals(borrowerId))
+                .findFirst()
+                .orElse(null);
+
+        if (borrower == null) {
+            System.out.println("No borrower record was found for this ID.");
+            return;
+        }
+
         BorrowRecord record = borrowRecords.stream()
                 .filter(r -> r.getBorrowerId().equals(borrowerId))
                 .findFirst()
                 .orElse(null);
 
         if (record == null) {
-            System.out.println("No borrow record was found for this ID.");
+            System.out.println("No borrow record found for this Borrower ID.");
             return;
         }
 
-        Borrower borrower = BorrowersManagement.getBorrowers().stream()
-                .filter(b -> b.getId().equals(borrowerId))
-                .findFirst()
-                .orElse(null);
-
-        if (borrower == null) {
-            System.out.println("Borrower was not found. Please register the borrower first.");
-            return;
-        }
-
-        Material material = AssetManagement.getMaterials().stream()
+        ArrayList<Material> materials = AssetManagement.getMaterials();
+        Material material = materials.stream()
                 .filter(m -> m.getMaterialId().equals(record.getMaterialId()))
                 .findFirst()
                 .orElse(null);
 
         if (material == null) {
-            System.out.println("Material was not found in the Library System's records.");
+            System.out.println("Material not found in the system.");
             return;
         }
 
-        Date returnDate = new Date();  
-        Date dueDate = record.getDueDate();  
+        Date returnDate = new Date();
+        Date dueDate = record.getDueDate();
 
         if (returnDate.after(dueDate)) {
             System.out.println("Material was returned late. Adding a strike to the borrower's record.");
@@ -91,34 +66,29 @@ public class Return {
             System.out.println("Material was returned on time.");
         }
 
-        material.setCopies(material.copies + 1);  
-        borrowRecords.remove(record);  
+        logReturnToHistoryFile(borrower.getId(), record.getMaterialId(), returnDate);
+
+        material.copies += 1;
+        borrowRecords.remove(record);
 
         System.out.println("Material was returned successfully!");
-        saveBorrowRecords();  
+        AssetManagement.saveAssets();
+        saveBorrowRecords();
     }
 
-    public static void viewBorrowRecords() {
-        System.out.println("\n--- Borrow Records ---");
-        if (borrowRecords.isEmpty()) {
-            System.out.println("There are no borrow records to show.");
-        } else {
-            borrowRecords.forEach(System.out::println);
-        }
-    }
-
+    @SuppressWarnings("unchecked")
     private static void loadBorrowRecords() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BORROW_FILE))) {
             Object readObject = ois.readObject();
             if (readObject instanceof ArrayList<?>) {
                 borrowRecords = (ArrayList<BorrowRecord>) readObject;
             } else {
-                throw new ClassNotFoundException("There was a data type mismatch in borrow records file.");
+                throw new ClassNotFoundException("Data type mismatch in borrow records file.");
             }
         } catch (FileNotFoundException e) {
-            System.out.println("No saved borrow records were found.");
+            System.out.println("No saved borrow records found. Starting fresh.");
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("There was an error loading borrow records: " + e.getMessage());
+            System.out.println("Error loading borrow records: " + e.getMessage());
         }
     }
 
@@ -126,7 +96,17 @@ public class Return {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(BORROW_FILE))) {
             oos.writeObject(borrowRecords);
         } catch (IOException e) {
-            System.out.println("There was an error saving borrow records: " + e.getMessage());
+            System.out.println("Error saving borrow records: " + e.getMessage());
         }
     }
+
+    private static void logReturnToHistoryFile(String borrowerId, String materialId, Date returnDate) {
+        try (FileWriter fw = new FileWriter("historyRecords.txt", true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+            out.println("Returned: Borrower ID: " + borrowerId + ", Material ID: " + materialId + ", Return Date: " + returnDate);
+        } catch (IOException e) {
+            System.out.println("Error logging return transaction: " + e.getMessage());
+        }
+    }    
 }

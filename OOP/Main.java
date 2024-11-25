@@ -36,19 +36,16 @@ public class Main {
                     Borrow.main(new String[]{});
                     break;
                 case 4:
-                    // Return.main(new String[]{});
+                    Return.main(new String[]{});
                     break;
                 case 5:
-                    // BorrowerHistory.main(new String[]{});
+                    BorrowerHistory.main(new String[]{});
                     break;
                 case 6:
-                    // BookHistory.main(new String[]{});
+                    BookHistory.main(new String[]{});
                     break;
                 case 7:
                     System.out.println("\n================ Thank You! ================");
-                    System.out.println("Group: [Your Group Name]");
-                    System.out.println("Members: [List of Members]");
-                    System.out.println("Goodbye!");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");

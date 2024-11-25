@@ -43,47 +43,25 @@ public class Borrow {
     private static final String BORROW_FILE = "borrow_records.txt";
     private static ArrayList<BorrowRecord> borrowRecords = new ArrayList<>();
 
-    public static void main(String[] args) {
+    static {
         loadBorrowRecords();
+    }
+
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int choice;
 
-        do {
-            System.out.println("\n--- Borrow System ---");
-            System.out.println("1. Borrow Material");
-            System.out.println("2. View Borrow Records");
-            System.out.println("3. Exit");
-            System.out.print("Enter your choice: ");
-
-            while (!scanner.hasNextInt()) {
-                System.out.print("Invalid input. Enter a number: ");
-                scanner.next();
-            }
-            choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1: borrowMaterial(scanner);
-                break;
-                case 2: viewBorrowRecords();
-                break;
-                case 3: {
-                    saveBorrowRecords();
-                    System.out.println("Exiting system. Goodbye!");
-                }
-                break;
-                default: System.out.println("Invalid choice. Please try again.");
-                break;
-            }
-        } while (choice != 3);
+        borrowMaterial(scanner);
     }
 
     private static void borrowMaterial(Scanner scanner) {
-        System.out.println("\n--- Borrow Material ---");
+        loadBorrowRecords();
+        System.out.println("\n--- Borrow System ---");
 
         System.out.print("Enter Borrower ID: ");
         String borrowerId = scanner.nextLine();
-        Borrower borrower = BorrowersManagement.getBorrowers().stream()
+
+        ArrayList<Borrower> borrowers = BorrowersManagement.getBorrowers();
+        Borrower borrower = borrowers.stream()
             .filter(b -> b.getId().equals(borrowerId))
             .findFirst()
             .orElse(null);
@@ -105,7 +83,9 @@ public class Borrow {
 
         System.out.print("Enter Material ID: ");
         String materialId = scanner.nextLine();
-        Material material = AssetManagement.getMaterials().stream()
+
+        ArrayList<Material> materials = AssetManagement.getMaterials();
+        Material material = materials.stream()
             .filter(m -> m.getMaterialId().equals(materialId))
             .findFirst()
             .orElse(null);
@@ -140,24 +120,20 @@ public class Borrow {
         BorrowRecord record = new BorrowRecord(borrowerId, materialId, borrowDate, dueDate);
         borrowRecords.add(record);
 
+        logBorrowToHistoryFile(record);
+
         material.setCopies(material.copies - 1);
 
         System.out.println("Material borrowed successfully!");
         System.out.println("Borrow Date: " + borrowDate);
         System.out.println("Due Date: " + (borrowDays > 0 ? dueDate : "End of Day"));
-    }
 
-    private static void viewBorrowRecords() {
-        System.out.println("\n--- Borrow Records ---");
-        if (borrowRecords.isEmpty()) {
-            System.out.println("No borrow records to display.");
-        } else {
-            borrowRecords.forEach(System.out::println);
-        }
+        AssetManagement.saveAssets();
+        saveBorrowRecords();
     }
 
     @SuppressWarnings("unchecked")
-    private static void loadBorrowRecords() {
+    public static void loadBorrowRecords() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(BORROW_FILE))) {
             borrowRecords = (ArrayList<BorrowRecord>) ois.readObject();
         } catch (FileNotFoundException e) {
@@ -172,6 +148,16 @@ public class Borrow {
             oos.writeObject(borrowRecords);
         } catch (IOException e) {
             System.out.println("Error saving borrow records: " + e.getMessage());
+        }
+    }
+
+    private static void logBorrowToHistoryFile(BorrowRecord record) {
+        try (FileWriter fw = new FileWriter("historyRecords.txt", true);
+             BufferedWriter bw = new BufferedWriter(fw);
+             PrintWriter out = new PrintWriter(bw)) {
+            out.println("Borrowed: " + record);
+        } catch (IOException e) {
+            System.out.println("Error logging borrow transaction: " + e.getMessage());
         }
     }
 }
