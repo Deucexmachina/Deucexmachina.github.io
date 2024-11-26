@@ -29,11 +29,11 @@ public class BorrowerHistory {
         }
     }
 
+    @SuppressWarnings("resource")
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); // Do not close the scanner here
         System.out.print("Enter Borrower ID to view history: ");
         String borrowerId = scanner.nextLine();
         displayBorrowerHistory(borrowerId);
-        scanner.close();
     }
 }

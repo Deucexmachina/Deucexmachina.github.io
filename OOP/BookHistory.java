@@ -29,11 +29,11 @@ public class BookHistory {
         }
     }
 
+    @SuppressWarnings("resource")
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in); // Do not close the scanner here
         System.out.print("Enter Material ID to view history: ");
         String materialId = scanner.nextLine();
         displayBookHistory(materialId);
-        scanner.close();
     }
 }
