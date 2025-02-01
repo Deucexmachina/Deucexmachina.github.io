@@ -1,4 +1,0 @@
-Borrowed: Borrower ID: 123, Material ID: 2, Borrow Date: Tue Nov 26 15:20:26 SGT 2024, Due Date: Fri Nov 29 15:20:26 SGT 2024
-Returned: Borrower ID: 123, Material ID: 2, Return Date: Tue Nov 26 15:21:09 SGT 2024
-Borrowed: Borrower ID: 456, Material ID: 2, Borrow Date: Tue Nov 26 15:21:40 SGT 2024, Due Date: Fri Nov 29 15:21:40 SGT 2024
-Returned: Borrower ID: 456, Material ID: 2, Return Date: Tue Nov 26 15:22:18 SGT 2024
